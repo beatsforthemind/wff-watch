@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 Wisconsin Film Festival — Complete Film Guide</title>
+<title>2026 Wisconsin Film Festival — A Supplemental Guide</title>
 <meta name="description" content="The complete chronological guide to the 28th Annual Wisconsin Film Festival, April 9–16, 2026 in Madison, WI. 79 films across 7 venues.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,11 +136,11 @@ body {
 .poster-year {
   font-family: 'Playfair Display', serif;
   font-size: 28px; font-weight: 900;
-  color: rgba(255,255,255,0.16); line-height: 1;
+  color: rgba(255,255,255,0.35); line-height: 1;
   position: relative; z-index: 1;
 }
 .poster-country {
-  font-size: 7px; color: rgba(255,255,255,0.45);
+  font-size: 7px; color: rgba(255,255,255,0.65);
   text-transform: uppercase; letter-spacing: 0.12em;
   margin-top: 4px; text-align: center;
   padding: 0 6px; position: relative; z-index: 1;
@@ -148,11 +148,6 @@ body {
 .poster-orb {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   opacity: 0.12; pointer-events: none;
-}
-.poster-dot {
-  position: absolute; bottom: 5px; right: 5px;
-  width: 12px; height: 12px; border-radius: 50%;
-  opacity: 0.5;
 }
 
 /* Film info */
@@ -462,12 +457,10 @@ function renderBadges(badges) {
 function renderPoster(f) {
   const g = posterGrad(f.g);
   const hue = (f.id * 37 + f.y) % 360;
-  const gc2 = genreColor(f.g);
   return `<div class="poster" style="background:linear-gradient(135deg,${g[0]},${g[1]},${g[2]})">
     <div class="poster-orb" style="background:radial-gradient(circle at ${30+f.id%40}% ${20+f.id%60}%,hsla(${hue},60%,50%,0.8),transparent 60%)"></div>
     <div class="poster-year">${f.y}</div>
     <div class="poster-country">${f.c.split(',')[0]}</div>
-    <div class="poster-dot" style="background:${gc2}"></div>
   </div>`;
 }
 
@@ -480,8 +473,8 @@ function renderCard(f) {
       <div class="film-info">
         <div class="film-title-row">
           <span class="film-title">${f.t}</span>
-          <a href="${imdbUrl(f.t)}" target="_blank" rel="noopener noreferrer" class="imdb-btn" onclick="event.stopPropagation()">IMDb</a>
-          <a href="${ytUrl(f.t)}" target="_blank" rel="noopener noreferrer" class="yt-btn" onclick="event.stopPropagation()">▶ Trailer</a>
+          <a href="${imdbUrl(f.t)}" target="_blank" rel="noopener noreferrer" class="imdb-btn" onclick="event.stopPropagation()">${IMDB[f.t] ? 'IMDb' : 'Search IMDb'}</a>
+          ${YT[f.t] ? `<a href="https://www.youtube.com/watch?v=${YT[f.t]}" target="_blank" rel="noopener noreferrer" class="yt-btn" onclick="event.stopPropagation()">▶ Trailer</a>` : ''}
         </div>
         <div class="badges">${renderBadges(f.b)}</div>
         <div class="film-meta">
