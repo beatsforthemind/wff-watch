@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Wisconsin Film Festival — Complete Film Guide</title>
+<meta name="description" content="The complete chronological guide to the 28th Annual Wisconsin Film Festival, April 9–16, 2026 in Madison, WI. 79 films across 7 venues.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f5f0;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #777;
+  --faint: #aaa;
+  --accent: #e8a838;
+  --accent-dark: #c78a20;
+  --border: #e8e4dc;
+  --header-bg: #141414;
+  --genre-narrative: #2d3436;
+  --genre-doc: #b44d1e;
+  --genre-horror: #9b1b30;
+  --genre-experimental: #6a3d7d;
+  --genre-animation: #1d7a5f;
+  --genre-shorts: #2a5f9e;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.header {
+  background: var(--header-bg);
+  color: #f7f5f0;
+  text-align: center;
+  padding: 44px 20px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(232,168,56,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(180,77,30,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.header-eyebrow {
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 8px; font-weight: 600;
+}
+.header h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(30px, 6vw, 52px);
+  font-weight: 900; line-height: 1.05; margin-bottom: 8px;
+}
+.header-sub { font-size: 14px; color: #b0aca4; margin-bottom: 3px; }
+.header-meta { font-size: 12px; color: #807c74; margin-bottom: 22px; }
+
+/* Search */
+.search-wrap { max-width: 440px; margin: 0 auto 16px; position: relative; }
+.search-wrap input {
+  width: 100%; padding: 10px 16px 10px 38px;
+  border-radius: 10px; border: 1px solid #333;
+  background: #222; color: #eee; font-size: 14px;
+  font-family: inherit; outline: none; transition: border-color 0.2s;
+}
+.search-wrap input:focus { border-color: var(--accent); }
+.search-wrap input::placeholder { color: #666; }
+.search-icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: #666; font-size: 15px; pointer-events: none;
+}
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; max-width: 580px; margin: 0 auto; }
+.filter-btn {
+  padding: 6px 14px; border-radius: 20px; border: none;
+  font-size: 12px; font-weight: 600; font-family: inherit;
+  cursor: pointer; transition: all 0.15s; color: #bbb; background: #333;
+}
+.filter-btn:hover { background: #444; color: #eee; }
+.filter-btn.active { background: var(--accent); color: #000; }
+
+/* Main content */
+.container { max-width: 840px; margin: 0 auto; padding: 0 16px 60px; }
+
+/* Day headers */
+.day-header {
+  position: sticky; top: 0; z-index: 20;
+  padding: 22px 0 10px;
+  background: linear-gradient(180deg, var(--bg) 82%, transparent);
+}
+.day-header h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(17px, 3vw, 24px);
+  font-weight: 700;
+  border-bottom: 3px solid var(--text);
+  display: inline-block; padding-bottom: 6px;
+}
+
+/* Film cards */
+.film-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  cursor: pointer;
+  border-left: 4px solid var(--genre-narrative);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.film-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.film-card-inner { display: flex; gap: 14px; align-items: flex-start; }
+
+/* Poster */
+.poster {
+  width: 78px; min-width: 78px; height: 108px;
+  border-radius: 6px; overflow: hidden;
+  position: relative; flex-shrink: 0;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.poster-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 900;
+  color: rgba(255,255,255,0.16); line-height: 1;
+  position: relative; z-index: 1;
+}
+.poster-country {
+  font-size: 7px; color: rgba(255,255,255,0.45);
+  text-transform: uppercase; letter-spacing: 0.12em;
+  margin-top: 4px; text-align: center;
+  padding: 0 6px; position: relative; z-index: 1;
+}
+.poster-orb {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0.12; pointer-events: none;
+}
+.poster-dot {
+  position: absolute; bottom: 5px; right: 5px;
+  width: 12px; height: 12px; border-radius: 50%;
+  opacity: 0.5;
+}
+
+/* Film info */
+.film-info { flex: 1; min-width: 0; }
+.film-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.film-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(15px, 2.5vw, 19px);
+  font-weight: 700; line-height: 1.25;
+}
+.imdb-btn {
+  display: inline-block; padding: 2px 7px;
+  border-radius: 3px; font-size: 9px; font-weight: 800;
+  background: #f5c518; color: #000; text-decoration: none;
+  letter-spacing: 0.05em; line-height: 16px;
+  transition: background 0.15s;
+}
+.imdb-btn:hover { background: #e8b708; }
+.badges { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 5px; }
+.badge {
+  display: inline-block; padding: 2px 7px;
+  border-radius: 3px; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.film-meta { font-size: 12px; color: #666; line-height: 1.5; }
+.film-meta-director { color: #333; font-weight: 600; }
+.film-sched { font-size: 11px; color: #999; margin-top: 3px; }
+.genre-pill {
+  display: inline-block; color: #fff;
+  padding: 1px 7px; border-radius: 3px;
+  font-size: 9px; font-weight: 600; margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* Expanded */
+.film-expanded {
+  margin-top: 0; padding-top: 0;
+  border-top: 1px solid transparent;
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease, padding-top 0.3s ease, border-color 0.3s ease;
+}
+.film-card.expanded .film-expanded {
+  max-height: 300px; opacity: 1;
+  margin-top: 12px; padding-top: 12px;
+  border-color: var(--border);
+}
+.film-synopsis {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13.5px; line-height: 1.7; color: #333;
+  margin-bottom: 8px; font-style: italic;
+}
+.film-cast { font-size: 11px; color: #888; }
+.film-cast strong { color: #555; }
+.film-also { font-size: 11px; color: var(--accent-dark); font-weight: 600; margin-top: 5px; }
+
+/* Footer */
+.footer {
+  text-align: center; padding: 24px 16px 44px;
+  font-size: 11px; color: #999;
+  border-top: 1px solid var(--border);
+}
+.footer a { color: var(--accent-dark); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Empty state */
+.empty { text-align: center; padding: 60px 20px; color: #999; font-size: 15px; }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .poster { width: 64px; min-width: 64px; height: 90px; }
+  .poster-year { font-size: 22px; }
+  .film-card { padding: 10px 12px; }
+  .film-card-inner { gap: 10px; }
+  .header { padding: 32px 16px 24px; }
+}
+
+/* Entrance animation */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.film-card { animation: fadeSlideIn 0.35s ease both; }
+.loaded .film-card { animation: none; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-eyebrow">28th Annual</div>
+  <h1>Wisconsin Film Festival</h1>
+  <div class="header-sub">April 9–16, 2026 · Madison, WI</div>
+  <div class="header-meta"><span id="filmCount"></span> films &amp; programs · 7 venues · 8 days</div>
+
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="searchInput" placeholder="Search films, directors, cast, countries...">
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="narrative">Narrative</button>
+    <button class="filter-btn" data-filter="doc">Documentary</button>
+    <button class="filter-btn" data-filter="shorts">Shorts</button>
+    <button class="filter-btn" data-filter="family">Family</button>
+    <button class="filter-btn" data-filter="wisown">WI's Own</button>
+    <button class="filter-btn" data-filter="classic">Classics</button>
+  </div>
+</header>
+
+<main class="container" id="filmList"></main>
+
+<footer class="footer">
+  Compiled from the official 2026 WFF Film Guide, wifilmfest.org, and press coverage.<br>
+  Tickets at <a href="https://wifilmfest.eventive.org/passes/buy" target="_blank" rel="noopener">wifilmfest.eventive.org</a> · $12 general · $325 all-festival pass · Tap any film to expand.
+</footer>
+
+<script>
+const IMDB = {"Poetic License":"tt32063220","The Christophers":"tt34966562","Normal":"tt31195136","Night of the Living Dead":"tt0063350","Nosferatu – live score by Circuit des Yeux":"tt0013442","Blank Check Presents: Babe: Pig in the City":"tt0120595","Early Summer":"tt0043313","Sholay":"tt0073707","Exorcist II: The Heretic":"tt0076009","Money from Home 3-D":"tt0046087","Erupcja":"tt33712666","Nadja":"tt0110620","Stella Dallas":"tt0016395","Magnificent Bodyguards 3-D":"tt0077541","Man on the Roof":"tt0074857","Lucky Lu":"tt34000545","My Father's Shadow":"tt35695538","Dead Mountaineer's Hotel":"tt0204526","Kontinental '25":"tt35492581","The Kidnapping of Arabella":"tt33292601","I Want Your Sex":"tt32332915","Spike of Bensonhurst":"tt0096156","Everybody to Kenmure Street":"tt36966956","The Last One for the Road":"tt36491632","The Blue Trail":"tt35340614","I Only Rest in the Storm":"tt36642485"};
+
+function imdbUrl(t) {
+  return IMDB[t] ? `https://www.imdb.com/title/${IMDB[t]}/` : `https://www.imdb.com/find/?q=${encodeURIComponent(t)}&s=tt&ttype=ft`;
+}
+
+const BADGE_STYLES = {
+  opening: { bg: "#f1c40f", color: "#000", label: "Opening Night" },
+  closing: { bg: "#f1c40f", color: "#000", label: "Closing Night" },
+  badger: { bg: "#c0392b", color: "#fff", label: "🏆 Golden Badger" },
+  wisown: { bg: "#b7472a", color: "#fff", label: "WI's Own" },
+  guests: { bg: "#2c3e50", color: "#fff", label: "Guests" },
+  "35mm": { bg: "#7f8c8d", color: "#fff", label: "35mm" },
+  "16mm": { bg: "#95a5a6", color: "#fff", label: "16mm" },
+  restoration: { bg: "#16a085", color: "#fff", label: "Restored" },
+  kids: { bg: "#e67e22", color: "#fff", label: "Family" },
+  live: { bg: "#8e44ad", color: "#fff", label: "Live Score" },
+};
+
+function genreColor(g) {
+  if (/Horror|Sci-Fi/.test(g)) return "var(--genre-horror)";
+  if (/Documentary/.test(g)) return "var(--genre-doc)";
+  if (/Experimental/.test(g)) return "var(--genre-experimental)";
+  if (/Animation/.test(g)) return "var(--genre-animation)";
+  if (/Shorts/.test(g)) return "var(--genre-shorts)";
+  return "var(--genre-narrative)";
+}
+
+function posterGrad(g) {
+  if (/Horror|Sci-Fi/.test(g)) return ["#1a0000","#3d0000","#6b0000"];
+  if (/Documentary/.test(g)) return ["#4a1942","#6b2d5b","#87377a"];
+  if (/Experimental/.test(g)) return ["#2d132c","#3e1f47","#512d6d"];
+  if (/Animation/.test(g)) return ["#1a3c40","#1d5c63","#417d7a"];
+  if (/Shorts/.test(g)) return ["#0a1628","#1a2a4a","#2a3a5c"];
+  return ["#1a1a2e","#16213e","#0f3460"];
+}
+
+const DAYS = [
+  ["Thu, Apr 9","Thursday, April 9 — Opening Night"],
+  ["Fri, Apr 10","Friday, April 10"],
+  ["Sat, Apr 11","Saturday, April 11"],
+  ["Sun, Apr 12","Sunday, April 12"],
+  ["Mon, Apr 13","Monday, April 13"],
+  ["Tue, Apr 14","Tuesday, April 14"],
+  ["Wed, Apr 15","Wednesday, April 15"],
+  ["Thu, Apr 16","Thursday, April 16 — Closing Night"],
+];
+
+const F = [
+  {id:1,t:"Poetic License",d:"Thu, Apr 9",tm:"7:00 PM",v:"Barrymore Theatre",y:2025,c:"USA",g:"Narrative",rt:117,dir:"Maude Apatow",cast:"Andrew Barth Feldman, Cooper Hoffman, Leslie Mann",syn:"Opening Night. Two college pals become enamored with the middle-aged mom auditing their poetry class in this fresh, endearing campus comedy.",b:["opening"],a:"N/A"},
+  {id:2,t:"My Undesirable Friends: Part I – Last Air in Moscow",d:"Fri, Apr 10",tm:"11:00 AM",v:"Bartell Theatre",y:2024,c:"Russia, USA",g:"Documentary",rt:324,dir:"Julia Loktev",syn:"An invaluable documentary epic following Russia's last independent news channel journalists. Includes two intermissions.",b:[],a:"Thu Apr 16, 1:30 PM – Flix 7"},
+  {id:3,t:"Lumière, Le Cinema!",d:"Fri, Apr 10",tm:"11:15 AM",v:"UW Cinematheque",y:2025,c:"France",g:"Documentary",rt:106,dir:"Thierry Frémaux",syn:"Over one hundred of the Lumière brothers' 50-second films in ravishing restorations — a love letter to cinema's 130th birthday.",b:[],a:"Wed Apr 15, 3:15 PM – Flix 7"},
+  {id:4,t:"What Does That Nature Say to You",d:"Fri, Apr 10",tm:"1:00 PM",v:"Chazen Museum of Art",y:2025,c:"South Korea",g:"Narrative",rt:109,dir:"Hong Sang-soo",syn:"A deadpan comedy: a dreamy poet meets his girlfriend's wealthy family. Hong Sang-soo's 33rd feature.",b:[],a:"Sat Apr 11, 3:45 PM – Bartell"},
+  {id:5,t:"Do You Love Me",d:"Fri, Apr 10",tm:"1:45 PM",v:"UW Cinematheque",y:2025,c:"Lebanon",g:"Documentary",rt:97,dir:"Lana Daher",syn:"Beirut through 70 years of archival footage — news docs, home videos, TV shows, musicals. Preceded by short Faux Bijoux.",b:[],a:"Wed Apr 15, 8:45 PM – Flix 7"},
+  {id:6,t:"The Last Critic",d:"Fri, Apr 10",tm:"3:30 PM",v:"Chazen Museum of Art",y:2026,c:"USA",g:"Documentary",rt:82,dir:"Matty Wishnow",syn:"Robert Christgau — the Dean of American Rock Critics — at 83, still grading new releases after half a century.",b:["guests"],a:"Sat Apr 11, 6:30 PM – Chazen"},
+  {id:7,t:"Dead Mountaineer's Hotel",d:"Fri, Apr 10",tm:"4:00 PM",v:"UW Cinematheque",y:1979,c:"Soviet-Estonian",g:"Narrative / Sci-Fi Mystery",rt:84,dir:"Grigori Kromanov",syn:"A genre-bending mystery in an isolated mountain hotel. Screenplay by the Strugatsky brothers. New 4K restoration.",b:["restoration"],a:"Mon Apr 13, 6:15 PM – Flix 2"},
+  {id:8,t:"Agatha's Almanac",d:"Fri, Apr 10",tm:"4:15 PM",v:"Music Hall",y:2025,c:"Canada",g:"Documentary",rt:91,dir:"Amalie Atkins",syn:"A portrait of a proudly independent 90-year-old off the grid in rural Manitoba. Shot on vivid 16mm. Preceded by Busy Bodies.",b:["16mm"],a:"Sat Apr 11, 6:15 PM – Bartell"},
+  {id:9,t:"Steal This Story, Please!",d:"Fri, Apr 10",tm:"6:00 PM",v:"Barrymore Theatre",y:2025,c:"USA",g:"Documentary",rt:98,dir:"Carl Deal, Tia Lessin",syn:"Journalist Amy Goodman confronts soldiers, politicians, and corporate media in pursuit of truth.",b:[],a:"N/A"},
+  {id:10,t:"The World According to Allee Willis",d:"Fri, Apr 10",tm:"6:00 PM",v:"Chazen Museum of Art",y:2024,c:"USA",g:"Documentary",rt:97,dir:"Alexis Spraic",syn:"UW-Madison alum Allee Willis wrote 'September,' 'Boogie Wonderland,' and the Friends theme. A candy-colored 1980s LA immersion.",b:["guests"],a:"N/A"},
+  {id:11,t:"Man on the Roof",d:"Fri, Apr 10",tm:"6:00 PM",v:"UW Cinematheque",y:1976,c:"Sweden",g:"Narrative / Thriller",rt:108,dir:"Bo Widerberg",syn:"A Scandinavian noir landmark: a policeman's murder erupts into rooftop violence. New 4K restoration.",b:["restoration"],a:"Tue Apr 14, 12:15 PM – Flix 8"},
+  {id:12,t:"Kontinental '25",d:"Fri, Apr 10",tm:"6:00 PM",v:"Bartell Theatre",y:2025,c:"Romania +5",g:"Narrative / Drama",rt:109,dir:"Radu Jude",syn:"A bailiff spirals after an evicted man commits suicide. Philosophical, darkly comic, deeply moving.",b:[],a:"Tue Apr 14, 2:30 PM – Flix 1"},
+  {id:13,t:"Obsession",d:"Fri, Apr 10",tm:"6:15 PM",v:"Marquee at Union South",y:2025,c:"USA",g:"Horror",rt:108,dir:"Curry Barker",syn:"A cursed monkey's paw wish sends a man's platonic crush straight to hell. Ruthless, darkly funny horror.",b:[],a:"N/A"},
+  {id:14,t:"Bouchra",d:"Fri, Apr 10",tm:"6:30 PM",v:"Music Hall",y:2025,c:"Morocco, USA, Italy",g:"Narrative / Animation",rt:83,dir:"Orian Barki, Meriem Bennani",syn:"3D animation and documentary collide: a queer Moroccan filmmaker (a coyote) finds her way in Manhattan.",b:[],a:"Tue Apr 14, 8:45 PM – Flix 7"},
+  {id:15,t:"Hen",d:"Fri, Apr 10",tm:"8:30 PM",v:"Music Hall",y:2025,c:"Greece, Germany, Hungary",g:"Narrative / Dark Comedy",rt:96,dir:"György Pálfi",syn:"A plucky chicken escapes the factory farm and has adventures across Greece. Eight trained birds, no CGI.",b:[],a:"Tue Apr 14, 8:30 PM – Flix 8"},
+  {id:16,t:"Maddie's Secret",d:"Fri, Apr 10",tm:"8:30 PM",v:"Barrymore Theatre",y:2025,c:"USA",g:"Narrative / Comedy",rt:98,dir:"John Early",cast:"John Early, Kate Berlant, Conner O'Malley",syn:"John Early in drag as a viral home chef. A cracked spoof of after-school specials and influencer culture.",b:[],a:"N/A"},
+  {id:17,t:"Nadja",d:"Fri, Apr 10",tm:"8:30 PM",v:"UW Cinematheque",y:1995,c:"USA",g:"Narrative / Horror",rt:93,dir:"Michael Almereyda",cast:"Elina Löwensohn, Peter Fonda, David Lynch",syn:"A NYC vampire on 35mm B&W with Pixelvision interludes. Exec produced by and starring David Lynch. Restored.",b:["restoration","35mm"],a:"Mon Apr 13, 8:45 PM – Flix 2"},
+  {id:18,t:"The Spies Among Us",d:"Fri, Apr 10",tm:"8:30 PM",v:"Bartell Theatre",y:2025,c:"USA",g:"Documentary",rt:91,dir:"Jamie C. Silverman, Gabriel Silverman",syn:"A historian discovers his brother was a Stasi informant and journeys into East Germany's secret police.",b:["wisown","guests"],a:"N/A"},
+  {id:19,t:"Erupcja",d:"Fri, Apr 10",tm:"8:45 PM",v:"Marquee at Union South",y:2025,c:"USA, Poland",g:"Narrative / Drama",rt:71,dir:"Pete Ohs",cast:"Charli xcx, Lena Góra, Will Madden",syn:"Charli xcx's dramatic debut as a restless traveler in Europe. A breezy hangout film à la Linklater.",b:[],a:"Wed Apr 15, 9 PM – Flix 2"},
+  {id:20,t:"Short Summer",d:"Fri, Apr 10",tm:"9:00 PM",v:"Chazen Museum of Art",y:2025,c:"Germany, France, Serbia",g:"Narrative / Drama",rt:101,dir:"Nastia Korkia",syn:"An eight-year-old's summer in the Russian countryside as tension simmers. Shot on 16mm. Lion of the Future, Venice.",b:["16mm"],a:"Sat Apr 11, 1:30 PM – Music Hall"},
+  {id:21,t:"Shorter and Sweeter",d:"Sat, Apr 11",tm:"10:00 AM",v:"Marquee at Union South",y:2025,c:"Various",g:"Animation Shorts",rt:66,dir:"Various",syn:"Whimsical animated tales for ages 4–11. 13 shorts from around the world.",b:["kids"],a:"N/A"},
+  {id:22,t:"Daughter Rite + The Leftovers",d:"Sat, Apr 11",tm:"11:00 AM",v:"Chazen Museum of Art",y:1978,c:"USA",g:"Experimental / Documentary",rt:76,dir:"Michelle Citron",syn:"A groundbreaking feminist film exploring mother-daughter relationships. On 16mm.",b:["16mm","guests"],a:"N/A"},
+  {id:23,t:"Deaf",d:"Sat, Apr 11",tm:"11:00 AM",v:"Bartell Theatre",y:2025,c:"Spain",g:"Narrative / Drama",rt:100,dir:"Eva Libertad",cast:"Miriam Garlo, Álvaro Cervantes",syn:"A deaf woman expecting her first child. Named one of 2025's 10 best by Almodóvar. Audience Award, Berlin.",b:[],a:"Mon Apr 13, 12:45 PM – Flix 2"},
+  {id:24,t:"Grinde-house Double Feature",d:"Sat, Apr 11",tm:"11:00 AM",v:"UW Cinematheque",y:1932,c:"USA",g:"Narrative (Retrospective)",rt:128,dir:"Nicholas Grinde",syn:"Madison-born director Nick Grinde: Shopworn (1932, 35mm) with Stanwyck + Before I Hang (1940, 4K) with Karloff.",b:["35mm","restoration","guests"],a:"N/A"},
+  {id:25,t:"Wisconsin's Own Short Stories",d:"Sat, Apr 11",tm:"11:00 AM",v:"Music Hall",y:2025,c:"USA",g:"Narrative Shorts",rt:77,dir:"Various",syn:"Five shorts including Golden Badger winner Jia, Chinese Satellite, Whale Math, and Golden Years.",b:["wisown","guests","badger"],a:"N/A"},
+  {id:26,t:"The Golden Spurtle",d:"Sat, Apr 11",tm:"11:30 AM",v:"Barrymore Theatre",y:2025,c:"UK, Australia",g:"Documentary",rt:75,dir:"Constantine Costi",syn:"The World Porridge Making Championship in the Scottish Highlands. Shot on lovely 16mm.",b:["16mm"],a:"N/A"},
+  {id:27,t:"Mira",d:"Sat, Apr 11",tm:"11:45 AM",v:"Marquee at Union South",y:2025,c:"Denmark",g:"Narrative / Coming-of-Age",rt:85,dir:"Marie Limkilde",syn:"Twelve-year-old Mira navigates friendships in the age of social media. Ages 10+.",b:["kids"],a:"N/A"},
+  {id:28,t:"Remake",d:"Sat, Apr 11",tm:"1:15 PM",v:"Chazen Museum of Art",y:2025,c:"USA",g:"Documentary",rt:114,dir:"Ross McElwee",syn:"The godfather of first-person cinema retraces his relationship with his son who overdosed at 27.",b:[],a:"Mon Apr 13, 12 PM – Flix 7"},
+  {id:29,t:"My Father's Shadow",d:"Sat, Apr 11",tm:"1:30 PM",v:"Bartell Theatre",y:2025,c:"Nigeria, UK",g:"Narrative / Drama",rt:93,dir:"Akinola Davies Jr.",syn:"1993 Lagos: two brothers and their estranged father. Shot on 16mm. Winner, Gotham Awards.",b:["16mm"],a:"Sun Apr 12, 1:15 PM – Bartell"},
+  {id:30,t:"Mixed Bag – Wisconsin's Own Shorts",d:"Sat, Apr 11",tm:"1:45 PM",v:"Marquee at Union South",y:2025,c:"USA",g:"Various Shorts",rt:85,dir:"Various",syn:"Nine shorts including Golden Badger-winning Shaggy's Big Break and Fred's Basement Bijou.",b:["wisown","guests","badger"],a:"N/A"},
+  {id:31,t:"Celtic Utopia",d:"Sat, Apr 11",tm:"1:45 PM",v:"Barrymore Theatre",y:2025,c:"Sweden, Ireland",g:"Documentary / Music",rt:90,dir:"Dennis Harvey, Lars Lovén",syn:"Ireland's folk music renaissance: punk and hip-hop artists rediscover ancient tradition.",b:[],a:"N/A"},
+  {id:32,t:"The Ozu Diaries",d:"Sat, Apr 11",tm:"2:00 PM",v:"UW Cinematheque",y:2025,c:"USA",g:"Documentary",rt:137,dir:"Daniel Raim",syn:"Ozu's private diaries, wartime notebooks, and home movies. With reflections from Wim Wenders.",b:["guests"],a:"N/A"},
+  {id:33,t:"We Are The Shaggs",d:"Sat, Apr 11",tm:"3:45 PM",v:"Chazen Museum of Art",y:2026,c:"USA",g:"Documentary / Music",rt:98,dir:"Ken Kwapis",syn:"Were 'The Shaggs' more than 'so bad they're good'? From the director of The Office.",b:["guests"],a:"Sun Apr 12, 7 PM – Music Hall"},
+  {id:34,t:"Immigrant Stories: WI's Own Docs",d:"Sat, Apr 11",tm:"4:00 PM",v:"Music Hall",y:2025,c:"USA",g:"Documentary Shorts",rt:73,dir:"Various",syn:"Four immigrant stories from America's heartland.",b:["wisown","guests"],a:"N/A"},
+  {id:35,t:"Last Shot",d:"Sat, Apr 11",tm:"4:15 PM",v:"Marquee at Union South",y:2026,c:"USA",g:"Narrative / Sports Drama",rt:103,dir:"Andy Palmer",cast:"Dylan Friedman, Jaime Pressly, Michael Rapaport",syn:"A 12-year-old basketball prodigy copes with family tragedy. Co-produced by UW alum.",b:["wisown","guests"],a:"N/A"},
+  {id:36,t:"Blank Check Presents: Babe: Pig in the City",d:"Sat, Apr 11",tm:"4:30 PM",v:"Barrymore Theatre",y:1998,c:"Australia, USA",g:"Narrative / Family",rt:156,dir:"George Miller",syn:"George Miller's cult classic + 60-min live podcast. Blank Check's first Midwest live show.",b:["guests"],a:"N/A"},
+  {id:37,t:"Early Summer",d:"Sat, Apr 11",tm:"5:30 PM",v:"UW Cinematheque",y:1951,c:"Japan",g:"Narrative / Drama",rt:125,dir:"Yasujirō Ozu",cast:"Setsuko Hara, Chishū Ryū",syn:"Ozu's masterpiece on the dissolving traditional Japanese family. On 35mm.",b:["35mm"],a:"N/A"},
+  {id:38,t:"Public Access",d:"Sat, Apr 11",tm:"6:30 PM",v:"Music Hall",y:2026,c:"USA",g:"Documentary",rt:107,dir:"David Shadrack Smith",syn:"Manhattan's wild public access TV — Blondie, Basquiat, and radical AIDS-era shows. 2026 Sundance.",b:[],a:"Sun Apr 12, 4:15 PM – Music Hall"},
+  {id:39,t:"I Accidentally Wrote a Book",d:"Sat, Apr 11",tm:"7:00 PM",v:"Marquee at Union South",y:2025,c:"Hungary",g:"Narrative / Coming-of-Age",rt:98,dir:"Nóra Lakos",syn:"Nina wants to be a writer and longs to learn about her late mother. Ages 10+.",b:["kids"],a:"N/A"},
+  {id:40,t:"Normal",d:"Sat, Apr 11",tm:"8:15 PM",v:"Barrymore Theatre",y:2025,c:"USA",g:"Narrative / Action",rt:90,dir:"Ben Wheatley",cast:"Bob Odenkirk, Henry Winkler, Lena Headey",syn:"A sheriff discovers his Minnesota town is a yakuza stronghold. From John Wick creator Derek Kolstad (Madison native). SXSW 2026.",b:["guests"],a:"N/A"},
+  {id:41,t:"Spike of Bensonhurst",d:"Sat, Apr 11",tm:"8:30 PM",v:"UW Cinematheque",y:1988,c:"USA",g:"Narrative / Comedy",rt:100,dir:"Paul Morrissey",cast:"Sasha Mitchell, Ernest Borgnine",syn:"A Brooklyn boxer hustles through fixed fights. From Warhol collaborator Paul Morrissey. Original 35mm.",b:["35mm"],a:"N/A"},
+  {id:42,t:"Romería",d:"Sat, Apr 11",tm:"8:30 PM",v:"Bartell Theatre",y:2025,c:"Spain, Germany",g:"Narrative / Drama",rt:114,dir:"Carla Simón",syn:"On the sunny Spanish coast, 18-year-old Marina meets her extended family. Carla Simón's autobiographical feature.",b:[],a:"Wed Apr 15, 6 PM – Flix 7"},
+  {id:43,t:"Wisconsin's Own Horror & Sci-Fi Shorts",d:"Sat, Apr 11",tm:"8:45 PM",v:"Music Hall",y:2025,c:"USA",g:"Horror / Sci-Fi Shorts",rt:85,dir:"Various",syn:"Nine unnerving tales from WI's spookiest filmmakers.",b:["wisown","guests"],a:"N/A"},
+  {id:44,t:"Lucky Lu",d:"Sat, Apr 11",tm:"9:00 PM",v:"Chazen Museum of Art",y:2025,c:"USA",g:"Narrative / Drama",rt:103,dir:"Lloyd Lee Choi",cast:"Chang Chen, Fala Chen",syn:"A NYC delivery man's plans to reunite with family collapse. A neorealist marvel on gritty 16mm.",b:["16mm"],a:"Wed Apr 15, 12:15 PM – Flix 2"},
+  {id:45,t:"Love It/Leave It: Tom Palazzolo's America",d:"Sun, Apr 12",tm:"11:00 AM",v:"Bartell Theatre",y:1970,c:"USA",g:"Experimental / Documentary",rt:89,dir:"Tom Palazzolo",syn:"Five films from 'Chicago's filmmaker laureate' capturing America. 1970–1990.",b:[],a:"N/A"},
+  {id:46,t:"The Currents",d:"Sun, Apr 12",tm:"11:00 AM",v:"Chazen Museum of Art",y:2025,c:"Argentina, Switzerland",g:"Narrative / Drama",rt:104,dir:"Milagros Mumenthaler",syn:"A fashion designer enters a fugue-like state abroad. Compared to Lucrecia Martel and Todd Haynes.",b:[],a:"Wed Apr 15, 12:30 PM – Flix 7"},
+  {id:47,t:"Stella Dallas",d:"Sun, Apr 12",tm:"11:00 AM",v:"UW Cinematheque",y:1925,c:"USA",g:"Narrative / Drama",rt:110,dir:"Henry King",cast:"Belle Bennett, Ronald Colman",syn:"Silent cinema's iconic maternal sacrifice story. New 35mm MoMA restoration. Live piano.",b:["35mm","restoration"],a:"N/A"},
+  {id:48,t:"The Kidnapping of Arabella",d:"Sun, Apr 12",tm:"11:00 AM",v:"Music Hall",y:2025,c:"Italy",g:"Narrative / Comedy",rt:107,dir:"Carolina Cavalli",cast:"Benedetta Porcaroli, Chris Pine",syn:"Eight-year-old Arabella's road trip with Chris Pine speaking fluent Italian. Nods to the Coens.",b:[],a:"Mon Apr 13, 3:30 PM – Flix 2"},
+  {id:49,t:"Short and Sweet",d:"Sun, Apr 12",tm:"11:00 AM",v:"Marquee at Union South",y:2025,c:"Various",g:"Animation / Live Action Shorts",rt:91,dir:"Various",syn:"Animated and live action shorts for ages 8–11. Includes Timun Mas by Madison elementary students.",b:["kids","wisown"],a:"N/A"},
+  {id:50,t:"A Life Illuminated",d:"Sun, Apr 12",tm:"11:00 AM",v:"Barrymore Theatre",y:2025,c:"USA",g:"Documentary / Nature",rt:90,dir:"Tasha Van Zandt",syn:"Dr. Edie Widder pursues deep-sea bioluminescence 3,300 feet below. Shot in exquisite 4K.",b:[],a:"N/A"},
+  {id:51,t:"25 Cats from Qatar",d:"Sun, Apr 12",tm:"1:30 PM",v:"Barrymore Theatre",y:2025,c:"USA",g:"Documentary",rt:95,dir:"Mye Hoang",syn:"A Milwaukee Cat Cafe owner rescues abandoned cats from Qatar for Wisconsin adoption.",b:["wisown","guests"],a:"N/A"},
+  {id:52,t:"Algorithmic Nudes & Experimental Shorts",d:"Sun, Apr 12",tm:"1:30 PM",v:"Chazen Museum of Art",y:2025,c:"USA",g:"Experimental Shorts",rt:73,dir:"Various",syn:"Eight experimental shorts from street dance to Las Vegas Elvis. Wisconsin's Own.",b:["wisown","guests"],a:"N/A"},
+  {id:53,t:"CYCLE",d:"Sun, Apr 12",tm:"1:30 PM",v:"Music Hall",y:2025,c:"USA",g:"Documentary",rt:95,dir:"Laura Dyan Kezman, William Howell",syn:"Ty'rese West was shot by a police officer while biking home in Racine, WI. A probing look at systemic injustice.",b:["wisown","guests"],a:"N/A"},
+  {id:54,t:"Mumbo Jumbo",d:"Sun, Apr 12",tm:"1:30 PM",v:"Marquee at Union South",y:2026,c:"Denmark",g:"Animation / Family",rt:82,dir:"Karsten Kiilerich",syn:"A little hippo accidentally turns himself JUMBO and quests to find witch Baba Yaga. Ages 4+.",b:["kids"],a:"N/A"},
+  {id:55,t:"Boorman and the Devil",d:"Sun, Apr 12",tm:"1:45 PM",v:"UW Cinematheque",y:2025,c:"USA, France",g:"Documentary",rt:112,dir:"David Kittredge",syn:"The making of Exorcist II: The Heretic. A production so troubled many thought it cursed.",b:["guests"],a:"Mon Apr 13, 3 PM – Flix 7"},
+  {id:56,t:"Yes",d:"Sun, Apr 12",tm:"3:45 PM",v:"Bartell Theatre",y:2025,c:"Israel, France +2",g:"Narrative / Satire",rt:152,dir:"Nadav Lapid",syn:"A searing satire: a musician and dancer perform for Tel Aviv's elite with lacerating wit.",b:[],a:"Wed Apr 15, 2:45 PM – Flix 2"},
+  {id:57,t:"And Then I Knew 'Twas Wind",d:"Sun, Apr 12",tm:"4:00 PM",v:"Chazen Museum of Art",y:2025,c:"USA",g:"Narrative / Slow Cinema",rt:105,dir:"Darius Mackenzie",syn:"A writer's canoe trip through Oregon where time widens. On 16mm. Five years in the making. Golden Badger winner.",b:["16mm","badger","wisown","guests"],a:"N/A"},
+  {id:58,t:"How Dare You?",d:"Sun, Apr 12",tm:"4:00 PM",v:"Marquee at Union South",y:2025,c:"Japan",g:"Narrative / Comedy",rt:96,dir:"Mipo O",syn:"A ten-year-old drawn into eco-activism by his crush on a classmate. Ages 10+.",b:["kids"],a:"N/A"},
+  {id:59,t:"Calle Málaga",d:"Sun, Apr 12",tm:"4:15 PM",v:"Barrymore Theatre",y:2025,c:"Morocco, France, Spain +2",g:"Narrative / Comedy-Drama",rt:116,dir:"Maryam Touzani",cast:"Carmen Maura",syn:"María Ángeles escapes the senior home and hosts soccer parties. Starring Carmen Maura of Almodóvar fame.",b:[],a:"N/A"},
+  {id:60,t:"Exorcist II: The Heretic",d:"Sun, Apr 12",tm:"4:45 PM",v:"UW Cinematheque",y:1977,c:"USA",g:"Narrative / Horror",rt:118,dir:"John Boorman",cast:"Richard Burton, Linda Blair, Max von Sydow",syn:"Boorman's uncut original on archival 35mm with Morricone score. Companion to Boorman and the Devil.",b:["35mm"],a:"N/A"},
+  {id:61,t:"Late Fame",d:"Sun, Apr 12",tm:"6:30 PM",v:"Marquee at Union South",y:2025,c:"USA",g:"Narrative / Comedy-Drama",rt:96,dir:"Kent Jones",cast:"Willem Dafoe, Greta Lee",syn:"Wisconsin's own Willem Dafoe as a post office worker 'rediscovered' for his forgotten poetry.",b:[],a:"Mon Apr 13, 2:45 PM – Flix 8"},
+  {id:62,t:"Winter Hymns",d:"Sun, Apr 12",tm:"6:45 PM",v:"Bartell Theatre",y:2026,c:"USA",g:"Narrative / Drama",rt:160,dir:"Nathan Deming",cast:"Colleen Madden, Brian Huskey",syn:"An epic day with a palliative care doctor. Golden Badger winner Nathan Deming's patient, emotionally rich work.",b:["wisown","guests","badger"],a:"N/A"},
+  {id:63,t:"The Stranger",d:"Sun, Apr 12",tm:"7:00 PM",v:"Barrymore Theatre",y:2025,c:"France",g:"Narrative / Drama",rt:120,dir:"François Ozon",cast:"Benjamin Voisin, Rebecca Marder",syn:"Ozon breathes new life into Camus's classic in inky B&W. Best Picture, Best Actor — 2025 Lumière Awards.",b:[],a:"N/A"},
+  {id:64,t:"Night of the Living Dead",d:"Sun, Apr 12",tm:"7:30 PM",v:"Chazen Museum of Art",y:1968,c:"USA",g:"Narrative / Horror",rt:96,dir:"George A. Romero",syn:"The immortal zombie classic on restored 35mm + conversation with author Daniel Kraus. Book signing.",b:["35mm","guests"],a:"N/A"},
+  {id:65,t:"Orphan",d:"Sun, Apr 12",tm:"7:30 PM",v:"UW Cinematheque",y:2025,c:"Hungary",g:"Narrative / Drama",rt:132,dir:"László Nemes",syn:"From the Son of Saul director: 1950s Budapest, a boy's identity fractures. On 35mm.",b:["35mm"],a:"Mon Apr 13, 11:45 AM – Flix 8"},
+  {id:66,t:"Living the Land",d:"Mon, Apr 13",tm:"5:30 PM",v:"Flix Brewhouse 8",y:2025,c:"China",g:"Narrative / Drama",rt:132,dir:"Huo Meng",syn:"Rural China in 1991 as tradition fractures. Shot across four seasons. Best Director, 2025 Berlin.",b:[],a:"Tue Apr 14, 2:45 PM – Flix 8"},
+  {id:67,t:"I Only Rest in the Storm",d:"Mon, Apr 13",tm:"6:30 PM",v:"Flix Brewhouse 7",y:2025,c:"Portugal, Brazil +2",g:"Narrative / Drama",rt:217,dir:"Pedro Pinho",syn:"A European engineer in West Africa. With 35mm cinematography. One of 2025's best per Cahiers du Cinema.",b:["35mm"],a:"Tue Apr 14, 1:30 PM – Flix 7"},
+  {id:68,t:"The Christophers",d:"Mon, Apr 13",tm:"8:30 PM",v:"Flix Brewhouse 8",y:2025,c:"United Kingdom",g:"Narrative / Crime Comedy",rt:100,dir:"Steven Soderbergh",cast:"Michaela Coel, Ian McKellen, Jessica Gunning",syn:"Soderbergh's witty London art forgery story. A struggling artist completes an aging painter's portraits.",b:[],a:"N/A"},
+  {id:69,t:"Money from Home 3-D",d:"Tue, Apr 14",tm:"5:30 PM",v:"Flix Brewhouse 1",y:1953,c:"USA",g:"Narrative / Comedy",rt:100,dir:"George Marshall",cast:"Dean Martin, Jerry Lewis",syn:"Dean Martin & Jerry Lewis in their only 3-D film! Lovingly restored to original Technicolor.",b:["restoration","guests"],a:"N/A"},
+  {id:70,t:"The Blue Trail",d:"Tue, Apr 14",tm:"6:00 PM",v:"Flix Brewhouse 8",y:2025,c:"Brazil, Mexico +2",g:"Narrative / Sci-Fi Drama",rt:86,dir:"Gabriel Mascaro",cast:"Denise Weinberg, Rodrigo Santoro",syn:"A 77-year-old escapes on the Amazon in a dystopian Brazil. Silver Bear, Berlin.",b:[],a:"Wed Apr 15, 4 PM – Flix 8"},
+  {id:71,t:"Blue Heron",d:"Tue, Apr 14",tm:"6:15 PM",v:"Flix Brewhouse 7",y:2025,c:"Canada, Hungary",g:"Narrative / Drama",rt:90,dir:"Sophy Romvari",syn:"A superb memory piece through eight-year-old eyes. 'The most moving film of the year.' — RogerEbert.com.",b:[],a:"Thu Apr 16, 12:15 PM – Flix 2"},
+  {id:72,t:"Magnificent Bodyguards 3-D",d:"Tue, Apr 14",tm:"8:45 PM",v:"Flix Brewhouse 1",y:1978,c:"Hong Kong",g:"Narrative / Martial Arts",rt:104,dir:"Lo Wei",cast:"Jackie Chan",syn:"Jackie Chan leaps out of the screen in restored 3-D! Ancient China martial arts.",b:["restoration"],a:"N/A"},
+  {id:73,t:"Everybody to Kenmure Street",d:"Wed, Apr 15",tm:"1:00 PM",v:"Flix Brewhouse 8",y:2026,c:"United Kingdom",g:"Documentary",rt:98,dir:"Felipe Bustos Sierra",syn:"Glasgow neighbors rally against immigration officers in an eight-hour standoff. Sundance 2026 Special Jury Award.",b:[],a:"Thu Apr 16, 5:30 PM – Flix 2"},
+  {id:74,t:"The Last One for the Road",d:"Wed, Apr 15",tm:"6:15 PM",v:"Flix Brewhouse 2",y:2025,c:"Italy, Germany",g:"Narrative / Comedy",rt:98,dir:"Francesco Sossai",cast:"Filippo Scotti",syn:"A drunken, droll road trip through northern Italy. Echoes of Sideways and The Last Detail.",b:[],a:"Thu Apr 16, 2:45 PM – Flix 2"},
+  {id:75,t:"Sholay",d:"Wed, Apr 15",tm:"6:30 PM",v:"Flix Brewhouse 8",y:1975,c:"India",g:"Narrative / Epic Action",rt:204,dir:"Ramesh Sippy",cast:"Dharmendra, Amitabh Bachchan",syn:"The restoration event of the decade! A thunderous Bollywood epic restored in 4K with the long-lost original ending.",b:["restoration"],a:"Thu Apr 16, 1:15 PM – Flix 8"},
+  {id:76,t:"Nosferatu – live score by Circuit des Yeux",d:"Wed, Apr 15",tm:"8:00 PM",v:"UW Cinematheque",y:1922,c:"Germany",g:"Narrative / Horror",rt:86,dir:"F.W. Murnau",cast:"Max Schreck",syn:"Horror cinema's foundational text with a live score by Circuit des Yeux + Alan Sparhawk of Low.",b:["live"],a:"N/A"},
+  {id:77,t:"I Want Your Sex",d:"Thu, Apr 16",tm:"6:00 PM",v:"Flix Brewhouse 8",y:2026,c:"USA",g:"Narrative / Satire",rt:90,dir:"Gregg Araki",cast:"Olivia Wilde, Cooper Hoffman, Charli xcx",syn:"An artist seduces her assistant. Sexy satire from cult favorite Gregg Araki. 2026 Sundance.",b:[],a:"N/A"},
+  {id:78,t:"The Furious",d:"Thu, Apr 16",tm:"8:15 PM",v:"Flix Brewhouse 2",y:2025,c:"Hong Kong, China",g:"Narrative / Action",rt:114,dir:"Kenji Tanigaki",syn:"The action movie of the year. Bravura fight sequences that top themselves again and again.",b:[],a:"N/A"},
+  {id:79,t:"Power Ballad",d:"Thu, Apr 16",tm:"8:30 PM",v:"Flix Brewhouse 8",y:2026,c:"USA",g:"Narrative / Comedy-Drama",rt:98,dir:"John Carney",cast:"Paul Rudd, Nick Jonas",syn:"Closing Night. A wedding singer bonds with a fading boy-band star. From the director of Sing Street and Once.",b:["closing"],a:"N/A"},
+];
+
+let currentFilter = "all";
+let currentSearch = "";
+let expandedId = null;
+
+function matches(f) {
+  if (currentFilter === "doc" && !/Documentary/.test(f.g)) return false;
+  if (currentFilter === "narrative" && !/Narrative/.test(f.g)) return false;
+  if (currentFilter === "shorts" && !/Shorts|Experimental/.test(f.g)) return false;
+  if (currentFilter === "family" && !f.b.includes("kids")) return false;
+  if (currentFilter === "wisown" && !f.b.includes("wisown")) return false;
+  if (currentFilter === "classic" && f.y > 2000) return false;
+  if (currentSearch) {
+    const s = currentSearch.toLowerCase();
+    return f.t.toLowerCase().includes(s) || f.dir.toLowerCase().includes(s) || (f.cast && f.cast.toLowerCase().includes(s)) || f.c.toLowerCase().includes(s);
+  }
+  return true;
+}
+
+function renderBadges(badges) {
+  return badges.map(b => {
+    const s = BADGE_STYLES[b];
+    return s ? `<span class="badge" style="background:${s.bg};color:${s.color}">${s.label}</span>` : '';
+  }).join('');
+}
+
+function renderPoster(f) {
+  const g = posterGrad(f.g);
+  const hue = (f.id * 37 + f.y) % 360;
+  const gc2 = genreColor(f.g);
+  return `<div class="poster" style="background:linear-gradient(135deg,${g[0]},${g[1]},${g[2]})">
+    <div class="poster-orb" style="background:radial-gradient(circle at ${30+f.id%40}% ${20+f.id%60}%,hsla(${hue},60%,50%,0.8),transparent 60%)"></div>
+    <div class="poster-year">${f.y}</div>
+    <div class="poster-country">${f.c.split(',')[0]}</div>
+    <div class="poster-dot" style="background:${gc2}"></div>
+  </div>`;
+}
+
+function renderCard(f) {
+  const gc2 = genreColor(f.g);
+  const ex = expandedId === f.id;
+  return `<div class="film-card ${ex ? 'expanded' : ''}" data-id="${f.id}" style="border-left-color:${gc2};animation-delay:${(f.id%10)*0.03}s">
+    <div class="film-card-inner">
+      ${renderPoster(f)}
+      <div class="film-info">
+        <div class="film-title-row">
+          <span class="film-title">${f.t}</span>
+          <a href="${imdbUrl(f.t)}" target="_blank" rel="noopener noreferrer" class="imdb-btn" onclick="event.stopPropagation()">IMDb</a>
+        </div>
+        <div class="badges">${renderBadges(f.b)}</div>
+        <div class="film-meta">
+          <span class="film-meta-director">${f.dir}</span> · ${f.c} · ${f.y} · ${f.rt} min
+        </div>
+        <div class="film-sched">
+          <span class="genre-pill" style="background:${gc2}">${f.g}</span>${f.tm} · ${f.v}
+        </div>
+      </div>
+    </div>
+    <div class="film-expanded">
+      <p class="film-synopsis">${f.syn}</p>
+      ${f.cast ? `<p class="film-cast"><strong>Cast:</strong> ${f.cast}</p>` : ''}
+      ${f.a !== 'N/A' ? `<p class="film-also">Also showing: ${f.a}</p>` : ''}
+    </div>
+  </div>`;
+}
+
+function render() {
+  const list = document.getElementById('filmList');
+  const filtered = F.filter(matches);
+  let html = '';
+  for (const [key, label] of DAYS) {
+    const dayFilms = filtered.filter(f => f.d === key);
+    if (!dayFilms.length) continue;
+    html += `<div class="day-header"><h2>${label}</h2></div>`;
+    html += dayFilms.map(renderCard).join('');
+  }
+  if (!filtered.length) {
+    html = '<div class="empty">No films match your search. Try different keywords.</div>';
+  }
+  list.innerHTML = html;
+
+  list.querySelectorAll('.film-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = parseInt(card.dataset.id);
+      if (expandedId === id) {
+        card.classList.remove('expanded');
+        expandedId = null;
+      } else {
+        const prev = expandedId != null ? list.querySelector(`.film-card[data-id="${expandedId}"]`) : null;
+        if (prev) prev.classList.remove('expanded');
+        card.classList.add('expanded');
+        expandedId = id;
+      }
+    });
+  });
+}
+
+document.getElementById('filmCount').textContent = F.length;
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  currentSearch = e.target.value;
+  expandedId = null;
+  render();
+});
+
+document.getElementById('filters').addEventListener('click', e => {
+  if (!e.target.classList.contains('filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  currentFilter = e.target.dataset.filter;
+  expandedId = null;
+  render();
+});
+
+render();
+requestAnimationFrame(() => { document.getElementById('filmList').classList.add('loaded'); });
+</script>
+</body>
+</html>
