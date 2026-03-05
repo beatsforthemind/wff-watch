@@ -256,6 +256,43 @@ body {
 .play-overlay svg { width: 64px; height: 64px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
 
 /* Footer */
+/* Venues section */
+.venues-section {
+  max-width: 900px; margin: 0 auto;
+  padding: 32px 16px 40px;
+}
+.venues-section h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px; font-weight: 900;
+  text-align: center; margin-bottom: 20px;
+  color: var(--text);
+}
+.venues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.venue-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  border: 1px solid var(--border);
+}
+.venue-name {
+  font-weight: 700; font-size: 15px;
+  color: var(--text); margin-bottom: 4px;
+}
+.venue-addr {
+  font-size: 12px; color: var(--muted);
+  margin-bottom: 8px;
+}
+.venue-map {
+  font-size: 11px; color: var(--accent-dark);
+  text-decoration: none; font-weight: 600;
+}
+.venue-map:hover { text-decoration: underline; }
+
 .footer {
   text-align: center; padding: 24px 16px 44px;
   font-size: 11px; color: #999;
@@ -315,6 +352,11 @@ body {
 </div>
 
 <main class="container" id="filmList"></main>
+
+<section class="venues-section">
+  <h2>Festival Venues</h2>
+  <div class="venues-grid" id="venuesGrid"></div>
+</section>
 
 <footer class="footer">
   Compiled from the official 2026 WFF Film Guide, wifilmfest.org, and press coverage.<br>
@@ -586,6 +628,23 @@ document.getElementById('filters').addEventListener('click', e => {
 
 render();
 requestAnimationFrame(() => { document.getElementById('filmList').classList.add('loaded'); });
+
+const VENUES = [
+  {name:"Barrymore Theatre", addr:"2090 Atwood Ave, Madison, WI"},
+  {name:"Bartell Theatre", addr:"113 E Mifflin St, Madison, WI"},
+  {name:"Chazen Museum of Art", addr:"750 University Ave, Madison, WI"},
+  {name:"Flix Brewhouse", addr:"85 E Towne Mall, Madison, WI"},
+  {name:"Marquee at Union South", addr:"1308 W Dayton St, Madison, WI"},
+  {name:"Music Hall", addr:"311 N Carroll St, Madison, WI"},
+  {name:"UW Cinematheque", addr:"4070 Vilas Hall, 821 University Ave, Madison, WI"}
+];
+document.getElementById('venuesGrid').innerHTML = VENUES.map(v =>
+  `<div class="venue-card">
+    <div class="venue-name">${v.name}</div>
+    <div class="venue-addr">${v.addr}</div>
+    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.name + ', ' + v.addr)}" target="_blank" rel="noopener noreferrer" class="venue-map">View on Map ↗</a>
+  </div>`
+).join('');
 </script>
 </body>
 </html>
