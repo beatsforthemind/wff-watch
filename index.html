@@ -171,6 +171,14 @@ body {
   transition: background 0.15s;
 }
 .imdb-btn:hover { background: #e8b708; }
+.yt-btn {
+  display: inline-block; padding: 2px 7px;
+  border-radius: 3px; font-size: 9px; font-weight: 800;
+  background: #ff0000; color: #fff; text-decoration: none;
+  letter-spacing: 0.05em; line-height: 16px;
+  transition: background 0.15s;
+}
+.yt-btn:hover { background: #cc0000; }
 .badges { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 5px; }
 .badge {
   display: inline-block; padding: 2px 7px;
@@ -195,7 +203,7 @@ body {
   transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease, padding-top 0.3s ease, border-color 0.3s ease;
 }
 .film-card.expanded .film-expanded {
-  max-height: 300px; opacity: 1;
+  max-height: 600px; opacity: 1;
   margin-top: 12px; padding-top: 12px;
   border-color: var(--border);
 }
@@ -207,6 +215,26 @@ body {
 .film-cast { font-size: 11px; color: #888; }
 .film-cast strong { color: #555; }
 .film-also { font-size: 11px; color: var(--accent-dark); font-weight: 600; margin-top: 5px; }
+.film-trailer {
+  position: relative; width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  margin-top: 8px;
+  border-radius: 6px; overflow: hidden;
+  cursor: pointer;
+}
+.film-trailer img {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.film-trailer .play-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.3);
+  transition: background 0.2s;
+}
+.film-trailer:hover .play-overlay { background: rgba(0,0,0,0.15); }
+.play-overlay svg { width: 64px; height: 64px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
 
 /* Footer */
 .footer {
@@ -274,6 +302,12 @@ const IMDB = {"Poetic License":"tt32063220","The Christophers":"tt34966562","Nor
 
 function imdbUrl(t) {
   return IMDB[t] ? `https://www.imdb.com/title/${IMDB[t]}/` : `https://www.imdb.com/find/?q=${encodeURIComponent(t)}&s=tt&ttype=ft`;
+}
+
+const YT = {"Poetic License":"VJURxzNgN-4","My Undesirable Friends: Part I – Last Air in Moscow":"eAb2VvRLWlQ","Lumière, Le Cinema!":"_3BEsMtLhzU","What Does That Nature Say to You":"ALCLZ3wEIaU","Do You Love Me":"E4D8JY1TQbY","Dead Mountaineer's Hotel":"FlQCVh_HSzM","Agatha's Almanac":"qLf90FHl-R8","Steal This Story, Please!":"htoMj3Mu-HI","The World According to Allee Willis":"zvBSldpFFcc","Man on the Roof":"0_YN9G39UcU","Kontinental '25":"J9cIkNJl-GE","Obsession":"0G5CjgPw1x4","Bouchra":"mWuaMWWNlZc","Hen":"2WPhKdXLZ2g","Nadja":"SB2FI3kqVgY","The Spies Among Us":"gv2N8dMQCUg","Erupcja":"OiHk3tFSK84","Short Summer":"2yqXG3OcpNQ","Daughter Rite + The Leftovers":"Ndx2s0kum_E","Deaf":"wx_Oha7PqTs","The Golden Spurtle":"AcTFnWvy8k4","Mira":"4idZOvjUo-Y","My Father's Shadow":"50ICTaEuQxg","Celtic Utopia":"NxED5C10zUI","The Ozu Diaries":"x8zSRxN9FAQ","Normal":"5OndK0w1lYY","Spike of Bensonhurst":"hz7mZZNImzA","Romería":"nIKZtoN8VMU","Lucky Lu":"I8d2aTTgO3A","The Currents":"qbMV8K1fTas","Stella Dallas":"IKgXNWwy2pM","The Kidnapping of Arabella":"1A0d79W7bsU","A Life Illuminated":"zAhjypVft-4","25 Cats from Qatar":"s7EEY9q-UIE","Mumbo Jumbo":"1qPxdt5O2s8","Boorman and the Devil":"EIRnlCTXzDE","Yes":"-1onUOERhXo","And Then I Knew 'Twas Wind":"R1cAYEH-QxY","How Dare You?":"Xdg7TRlCN9M","Calle Málaga":"krWfyFZxSoA","Exorcist II: The Heretic":"LDraTxCzewY","Late Fame":"otyq-mDQMKM","The Stranger":"fV3F2fkevCM","Night of the Living Dead":"o7xO_ciIEeA","Orphan":"ttF-uKy81ZE","Living the Land":"6gtql4EgmW8","I Only Rest in the Storm":"L4Vr9EJ6ZAo","The Christophers":"H79-EqzmdwY","Money from Home 3-D":"ePx6ed0SYqU","The Blue Trail":"OAhm75XHeHo","Blue Heron":"2QsZmQy8Q_w","Magnificent Bodyguards 3-D":"Zb8IaJgMIok","Everybody to Kenmure Street":"JOY5T03hHbk","The Last One for the Road":"9lCa6XkyVSo","Sholay":"fefaxq2nXoE","Nosferatu – live score by Circuit des Yeux":"ZxlJxDr26mM","I Want Your Sex":"B0KYOJIyR5w","The Furious":"f3urHeVUWO4","Power Ballad":"0gJ6cLZlEY0","Early Summer":"pjbFJC2l_yQ","I Accidentally Wrote a Book":"nJZFbzDZZDE","Last Shot":"6GVSqXkG0cI","Blank Check Presents: Babe: Pig in the City":"XoMZtqQq3LQ","Love It/Leave It: Tom Palazzolo's America":"JKuLDcNxYYY","The Last Critic":"8cKuhr4MH5Y","Remake":"QnqcWx9TRFE"};
+
+function ytUrl(t) {
+  return YT[t] ? `https://www.youtube.com/watch?v=${YT[t]}` : `https://www.youtube.com/results?search_query=${encodeURIComponent(t + ' trailer')}`;
 }
 
 const BADGE_STYLES = {
@@ -447,6 +481,7 @@ function renderCard(f) {
         <div class="film-title-row">
           <span class="film-title">${f.t}</span>
           <a href="${imdbUrl(f.t)}" target="_blank" rel="noopener noreferrer" class="imdb-btn" onclick="event.stopPropagation()">IMDb</a>
+          <a href="${ytUrl(f.t)}" target="_blank" rel="noopener noreferrer" class="yt-btn" onclick="event.stopPropagation()">▶ Trailer</a>
         </div>
         <div class="badges">${renderBadges(f.b)}</div>
         <div class="film-meta">
@@ -461,6 +496,7 @@ function renderCard(f) {
       <p class="film-synopsis">${f.syn}</p>
       ${f.cast ? `<p class="film-cast"><strong>Cast:</strong> ${f.cast}</p>` : ''}
       ${f.a !== 'N/A' ? `<p class="film-also">Also showing: ${f.a}</p>` : ''}
+      ${YT[f.t] ? `<div class="film-trailer" data-yt="${YT[f.t]}"></div>` : ''}
     </div>
   </div>`;
 }
@@ -485,11 +521,22 @@ function render() {
       const id = parseInt(card.dataset.id);
       if (expandedId === id) {
         card.classList.remove('expanded');
+        const trailer = card.querySelector('.film-trailer');
+        if (trailer) trailer.innerHTML = '';
         expandedId = null;
       } else {
         const prev = expandedId != null ? list.querySelector(`.film-card[data-id="${expandedId}"]`) : null;
-        if (prev) prev.classList.remove('expanded');
+        if (prev) {
+          prev.classList.remove('expanded');
+          const pt = prev.querySelector('.film-trailer');
+          if (pt) pt.innerHTML = '';
+        }
         card.classList.add('expanded');
+        const trailer = card.querySelector('.film-trailer[data-yt]');
+        if (trailer) {
+          const ytId = trailer.dataset.yt;
+          trailer.innerHTML = `<a href="https://www.youtube.com/watch?v=${ytId}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"><img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" alt="Trailer"><div class="play-overlay"><svg viewBox="0 0 68 48"><path d="M66.5 7.7c-.8-2.9-2.5-5.4-5.4-6.2C55.8.1 34 0 34 0S12.2.1 6.9 1.5c-2.9.8-4.6 3.3-5.4 6.2C.1 13 0 24 0 24s.1 11 1.5 16.3c.8 2.9 2.5 5.4 5.4 6.2C12.2 47.9 34 48 34 48s21.8-.1 27.1-1.5c2.9-.8 4.6-3.3 5.4-6.2C67.9 35 68 24 68 24s-.1-11-1.5-16.3z" fill="red"/><path d="M45 24L27 14v20" fill="#fff"/></svg></div></a>`;
+        }
         expandedId = id;
       }
     });
