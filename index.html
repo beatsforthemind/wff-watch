@@ -59,11 +59,26 @@ body {
 }
 .header h1 {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(30px, 6vw, 52px);
+  font-size: clamp(24px, 5vw, 40px);
   font-weight: 900; line-height: 1.05; margin-bottom: 8px;
 }
 .header-sub { font-size: 14px; color: #b0aca4; margin-bottom: 3px; }
 .header-meta { font-size: 12px; color: #807c74; margin-bottom: 22px; }
+
+/* Disclaimer banner */
+.disclaimer-banner {
+  background: #eae6de;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: #5a5650;
+  line-height: 1.4;
+  border-top: 1px solid #d5d0c8;
+}
+.disclaimer-banner a {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
 
 /* Search */
 .search-wrap { max-width: 440px; margin: 0 auto 16px; position: relative; }
@@ -284,6 +299,11 @@ body {
     <button class="filter-btn" data-filter="classic">Classics</button>
   </div>
 </header>
+
+<div class="disclaimer-banner">
+  This is an unofficial supplemental guide and is not affiliated with the
+  <a href="https://wifilmfest.org" target="_blank" rel="noopener noreferrer">Wisconsin Film Festival</a>.
+</div>
 
 <main class="container" id="filmList"></main>
 
