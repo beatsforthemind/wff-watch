@@ -326,6 +326,135 @@ body {
 }
 .film-card { animation: fadeSlideIn 0.35s ease both; }
 .loaded .film-card { animation: none; }
+
+/* View toggle */
+.view-toggle { display: flex; gap: 4px; justify-content: center; margin-top: 12px; }
+.view-btn {
+  padding: 6px 16px; border-radius: 20px; border: none;
+  font-size: 12px; font-weight: 600; font-family: inherit;
+  cursor: pointer; transition: all 0.15s;
+  color: #bbb; background: #333;
+}
+.view-btn:hover { background: #444; color: #eee; }
+.view-btn.active { background: var(--accent); color: #000; }
+
+/* Day selector */
+.grid-day-selector {
+  display: flex; gap: 4px; justify-content: center;
+  flex-wrap: wrap; margin-top: 10px;
+}
+.grid-day-btn {
+  padding: 5px 12px; border-radius: 16px; border: 1px solid #444;
+  font-size: 11px; font-weight: 700; font-family: inherit;
+  cursor: pointer; transition: all 0.15s;
+  color: #bbb; background: #222;
+}
+.grid-day-btn:hover { background: #333; color: #eee; }
+.grid-day-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+.grid-day-count { font-weight: 400; opacity: 0.7; }
+
+/* Schedule grid */
+.container--wide { max-width: 1100px; }
+.schedule-grid-wrap {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  padding-bottom: 20px;
+}
+.schedule-grid { position: relative; min-width: 800px; }
+.schedule-time-axis {
+  position: relative; margin-left: 130px; height: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.schedule-time-mark {
+  position: absolute; font-size: 10px; font-weight: 600;
+  color: var(--muted); transform: translateX(-50%); white-space: nowrap;
+}
+.schedule-venue-row {
+  display: flex; min-height: 52px;
+  border-bottom: 1px solid var(--border); position: relative;
+}
+.schedule-venue-row:nth-child(even) { background: rgba(0,0,0,0.02); }
+.schedule-venue-label {
+  width: 130px; min-width: 130px;
+  font-size: 11px; font-weight: 700; color: var(--text);
+  padding: 8px 10px 8px 0;
+  display: flex; align-items: flex-start;
+  position: sticky; left: 0; z-index: 5;
+  background: var(--bg);
+}
+.schedule-venue-track { flex: 1; position: relative; min-height: 52px; }
+.schedule-block {
+  position: absolute; top: 4px; height: 44px;
+  border-radius: 6px; padding: 4px 8px;
+  cursor: pointer; overflow: hidden; white-space: nowrap;
+  font-size: 11px; font-weight: 600; color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  transition: transform 0.15s, box-shadow 0.15s;
+  z-index: 1; display: flex; flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.schedule-block:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 20;
+}
+.schedule-block--selected {
+  outline: 2px solid #fff; z-index: 20;
+}
+.schedule-block--dimmed { opacity: 0.15; pointer-events: none; }
+.schedule-block-title {
+  font-size: 11px; font-weight: 700; line-height: 1.2;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.schedule-block-meta {
+  font-size: 9px; font-weight: 400; opacity: 0.85;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.schedule-block--narrow .schedule-block-meta { display: none; }
+
+/* Schedule tooltip */
+.schedule-tooltip {
+  position: fixed; background: var(--header-bg); color: #eee;
+  padding: 10px 14px; border-radius: 8px; font-size: 12px;
+  max-width: 280px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  z-index: 100; pointer-events: none; opacity: 0;
+  transition: opacity 0.15s; line-height: 1.4;
+}
+.schedule-tooltip.visible { opacity: 1; }
+.schedule-tooltip .tt-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 14px; font-weight: 700; margin-bottom: 4px;
+}
+.schedule-tooltip .tt-time { color: var(--accent); font-weight: 600; font-size: 11px; }
+
+/* Schedule detail panel */
+.schedule-detail {
+  background: var(--card); border-radius: 10px;
+  padding: 16px 20px; margin-top: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-left: 4px solid var(--genre-narrative);
+  animation: fadeSlideIn 0.25s ease both;
+}
+
+/* Grid vertical lines */
+.schedule-gridline {
+  position: absolute; top: 0; bottom: 0; width: 1px;
+  background: var(--border); pointer-events: none; z-index: 0;
+}
+
+/* Schedule responsive */
+@media (max-width: 768px) {
+  .schedule-grid { min-width: 600px; }
+  .schedule-venue-label { width: 90px; min-width: 90px; font-size: 10px; }
+  .schedule-time-axis { margin-left: 90px; }
+  .schedule-block { height: 38px; }
+}
+@media (max-width: 480px) {
+  .schedule-grid { min-width: 500px; }
+  .schedule-venue-label { width: 70px; min-width: 70px; font-size: 9px; }
+  .schedule-time-axis { margin-left: 70px; }
+  .schedule-block { height: 34px; font-size: 9px; }
+}
 </style>
 </head>
 <body>
@@ -350,6 +479,12 @@ body {
     <button class="filter-btn" data-filter="wisown">WI's Own</button>
     <button class="filter-btn" data-filter="classic">Classics</button>
   </div>
+
+  <div class="view-toggle" id="viewToggle">
+    <button class="view-btn active" data-view="list">☰ List</button>
+    <button class="view-btn" data-view="grid">▦ Schedule</button>
+  </div>
+  <div class="grid-day-selector" id="gridDaySelector" style="display:none"></div>
 </header>
 
 <div class="disclaimer-banner">
@@ -357,7 +492,10 @@ body {
   <a href="https://wifilmfest.org" target="_blank" rel="noopener noreferrer">Wisconsin Film Festival</a>. Click/tap cards for more info.
 </div>
 
-<main class="container" id="filmList"></main>
+<main class="container" id="mainContainer">
+  <div id="filmList"></div>
+  <div id="scheduleGrid" class="schedule-grid-wrap" style="display:none"></div>
+</main>
 
 <section class="venues-section">
   <h2>Festival Venues</h2>
@@ -511,6 +649,9 @@ const F = [
 let currentFilter = "all";
 let currentSearch = "";
 let expandedId = null;
+let currentView = "list";
+let currentGridDay = "Fri, Apr 10";
+let selectedGridFilm = null;
 
 function matches(f) {
   if (currentFilter === "doc" && !/Documentary/.test(f.g)) return false;
@@ -574,7 +715,80 @@ function renderCard(f) {
   </div>`;
 }
 
-function render() {
+// --- Schedule Grid Utilities ---
+
+function parseTime(tmStr) {
+  const m = tmStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!m) return 0;
+  let h = parseInt(m[1]);
+  const min = parseInt(m[2]);
+  if (m[3].toUpperCase() === 'PM' && h !== 12) h += 12;
+  if (m[3].toUpperCase() === 'AM' && h === 12) h = 0;
+  return h * 60 + min;
+}
+
+function formatTime(mins) {
+  let h = Math.floor(mins / 60);
+  const m = mins % 60;
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  if (h > 12) h -= 12;
+  if (h === 0) h = 12;
+  return `${h}:${String(m).padStart(2,'0')} ${ampm}`;
+}
+
+function getDayTimeRange(dayFilms) {
+  if (!dayFilms.length) return { start: 600, end: 1320 };
+  let earliest = Infinity, latest = 0;
+  for (const f of dayFilms) {
+    const s = parseTime(f.tm), e = s + f.rt;
+    if (s < earliest) earliest = s;
+    if (e > latest) latest = e;
+  }
+  return { start: Math.floor(earliest / 60) * 60, end: Math.ceil(latest / 60) * 60 };
+}
+
+function getBlockPosition(film, timeRange) {
+  const total = timeRange.end - timeRange.start;
+  const start = parseTime(film.tm);
+  return { left: ((start - timeRange.start) / total) * 100, width: (film.rt / total) * 100 };
+}
+
+const VENUE_ORDER = [
+  'Barrymore Theatre','Bartell Theatre','Chazen Museum of Art',
+  'UW Cinematheque','Music Hall','Marquee at Union South',
+  'Flix Brewhouse 1','Flix Brewhouse 2','Flix Brewhouse 7','Flix Brewhouse 8'
+];
+const VENUE_SHORT = {
+  'Barrymore Theatre':'Barrymore','Bartell Theatre':'Bartell',
+  'Chazen Museum of Art':'Chazen','UW Cinematheque':'Cinematheque',
+  'Music Hall':'Music Hall','Marquee at Union South':'Marquee',
+  'Flix Brewhouse 1':'Flix 1','Flix Brewhouse 2':'Flix 2',
+  'Flix Brewhouse 7':'Flix 7','Flix Brewhouse 8':'Flix 8'
+};
+
+function getDayVenues(dayFilms) {
+  const s = new Set(dayFilms.map(f => f.v));
+  return VENUE_ORDER.filter(v => s.has(v));
+}
+
+function assignStacks(venueFilms) {
+  const sorted = venueFilms
+    .map(f => ({ film: f, start: parseTime(f.tm), end: parseTime(f.tm) + f.rt }))
+    .sort((a, b) => a.start - b.start);
+  const result = [], ends = [];
+  for (const item of sorted) {
+    let placed = false;
+    for (let s = 0; s < ends.length; s++) {
+      if (item.start >= ends[s]) { ends[s] = item.end; result.push({ film: item.film, stack: s }); placed = true; break; }
+    }
+    if (!placed) { result.push({ film: item.film, stack: ends.length }); ends.push(item.end); }
+  }
+  return result;
+}
+
+// --- Render: List View ---
+
+function renderListView() {
   const list = document.getElementById('filmList');
   const filtered = F.filter(matches);
   let html = '';
@@ -616,11 +830,166 @@ function render() {
   });
 }
 
+// --- Render: Schedule Grid View ---
+
+function renderDaySelector() {
+  const sel = document.getElementById('gridDaySelector');
+  sel.innerHTML = DAYS.map(([key]) => {
+    const count = F.filter(f => f.d === key).length;
+    const short = key.replace(', Apr ', '/');
+    return `<button class="grid-day-btn${key === currentGridDay ? ' active' : ''}" data-day="${key}">${short} <span class="grid-day-count">(${count})</span></button>`;
+  }).join('');
+}
+
+function renderScheduleGrid() {
+  const wrap = document.getElementById('scheduleGrid');
+  const allDayFilms = F.filter(f => f.d === currentGridDay);
+  const matchingIds = new Set(allDayFilms.filter(matches).map(f => f.id));
+
+  if (!allDayFilms.length) {
+    wrap.innerHTML = '<div class="empty">No films scheduled for this day.</div>';
+    return;
+  }
+
+  const venues = getDayVenues(allDayFilms);
+  const timeRange = getDayTimeRange(allDayFilms);
+  const total = timeRange.end - timeRange.start;
+
+  // Time axis
+  let timeAxisHtml = '';
+  for (let m = timeRange.start; m <= timeRange.end; m += 60) {
+    const pct = ((m - timeRange.start) / total) * 100;
+    const h = m / 60;
+    const label = h > 12 ? `${h - 12}PM` : h === 12 ? '12PM' : `${h}AM`;
+    timeAxisHtml += `<span class="schedule-time-mark" style="left:${pct}%">${label}</span>`;
+  }
+
+  // Grid lines
+  let gridLines = '';
+  for (let m = timeRange.start; m <= timeRange.end; m += 60) {
+    const pct = ((m - timeRange.start) / total) * 100;
+    gridLines += `<div class="schedule-gridline" style="left:${pct}%"></div>`;
+  }
+
+  // Venue rows
+  let rowsHtml = '';
+  for (const venue of venues) {
+    const venueFilms = allDayFilms.filter(f => f.v === venue);
+    const stacks = assignStacks(venueFilms);
+    const maxStack = stacks.length ? Math.max(...stacks.map(s => s.stack)) + 1 : 1;
+    const rowHeight = Math.max(52, maxStack * 50 + 8);
+
+    let blocksHtml = '';
+    for (const { film, stack } of stacks) {
+      const pos = getBlockPosition(film, timeRange);
+      const gc = genreColor(film.g);
+      const dimmed = matchingIds.size < allDayFilms.length && !matchingIds.has(film.id);
+      const narrow = pos.width < 6;
+      const selected = selectedGridFilm === film.id;
+      blocksHtml += `<div class="schedule-block${narrow ? ' schedule-block--narrow' : ''}${dimmed ? ' schedule-block--dimmed' : ''}${selected ? ' schedule-block--selected' : ''}"
+        data-id="${film.id}"
+        style="left:${pos.left}%;width:${pos.width}%;background:${gc};top:${4 + stack * 50}px">
+        <span class="schedule-block-title">${film.t}</span>
+        <span class="schedule-block-meta">${film.tm} · ${film.rt}m</span>
+      </div>`;
+    }
+
+    rowsHtml += `<div class="schedule-venue-row" style="min-height:${rowHeight}px">
+      <div class="schedule-venue-label">${VENUE_SHORT[venue] || venue}</div>
+      <div class="schedule-venue-track">${blocksHtml}</div>
+    </div>`;
+  }
+
+  wrap.innerHTML = `
+    <div class="schedule-grid">
+      <div class="schedule-time-axis"><div style="position:relative;height:28px">${timeAxisHtml}</div></div>
+      <div style="position:relative">
+        ${gridLines}
+        ${rowsHtml}
+      </div>
+    </div>
+    <div id="scheduleDetail"></div>`;
+
+  // Attach handlers
+  wrap.querySelectorAll('.schedule-block:not(.schedule-block--dimmed)').forEach(block => {
+    block.addEventListener('click', () => {
+      const id = parseInt(block.dataset.id);
+      const film = F.find(f => f.id === id);
+      if (!film) return;
+      selectedGridFilm = selectedGridFilm === id ? null : id;
+      // Update selection styling
+      wrap.querySelectorAll('.schedule-block').forEach(b => {
+        b.classList.toggle('schedule-block--selected', parseInt(b.dataset.id) === selectedGridFilm);
+      });
+      if (selectedGridFilm) {
+        showScheduleDetail(film);
+      } else {
+        document.getElementById('scheduleDetail').innerHTML = '';
+      }
+    });
+
+    block.addEventListener('mouseenter', e => {
+      const id = parseInt(block.dataset.id);
+      const film = F.find(f => f.id === id);
+      if (!film) return;
+      let tip = document.getElementById('scheduleTooltip');
+      if (!tip) { tip = document.createElement('div'); tip.id = 'scheduleTooltip'; tip.className = 'schedule-tooltip'; document.body.appendChild(tip); }
+      const endLabel = formatTime(parseTime(film.tm) + film.rt);
+      tip.innerHTML = `<div class="tt-title">${film.t}</div><div class="tt-time">${film.tm} – ${endLabel} · ${film.rt}min</div><div style="font-size:11px;margin-top:4px;color:#bbb">${film.dir} · ${film.c}</div><div style="font-size:10px;margin-top:2px;color:#888">${film.v}</div>`;
+      const r = block.getBoundingClientRect();
+      tip.style.left = Math.min(r.left, window.innerWidth - 290) + 'px';
+      tip.style.top = (r.bottom + 8) + 'px';
+      tip.classList.add('visible');
+    });
+
+    block.addEventListener('mouseleave', () => {
+      const tip = document.getElementById('scheduleTooltip');
+      if (tip) tip.classList.remove('visible');
+    });
+  });
+}
+
+function showScheduleDetail(film) {
+  const detail = document.getElementById('scheduleDetail');
+  const gc = genreColor(film.g);
+  detail.innerHTML = `
+    <div class="schedule-detail" style="border-left-color:${gc}">
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        ${renderPoster(film)}
+        <div style="flex:1;min-width:0">
+          <div class="film-title-row">
+            <span class="film-title">${film.t}</span>
+            ${NO_IMDB.has(film.t) ? '' : `<a href="${imdbUrl(film.t)}" target="_blank" rel="noopener noreferrer" class="imdb-btn" onclick="event.stopPropagation()">${IMDB[film.t] ? 'IMDb' : 'Search IMDb'}</a>`}
+            ${YT[film.t] ? `<a href="https://www.youtube.com/watch?v=${YT[film.t]}" target="_blank" rel="noopener noreferrer" class="yt-btn" onclick="event.stopPropagation()">▶ Trailer</a>` : ''}
+          </div>
+          <div class="badges">${renderBadges(film.b)}</div>
+          <div class="film-meta"><span class="film-meta-director">${film.dir}</span> · ${film.c} · ${film.y} · ${film.rt} min</div>
+          <div class="film-sched"><span class="genre-pill" style="background:${gc}">${film.g}</span>${film.tm} · ${film.v}</div>
+          <p class="film-synopsis" style="margin-top:10px">${film.syn}</p>
+          ${film.cast ? `<p class="film-cast"><strong>Cast:</strong> ${film.cast}</p>` : ''}
+          ${film.a !== 'N/A' ? `<p class="film-also">Also showing: ${film.a}</p>` : ''}
+        </div>
+      </div>
+    </div>`;
+  detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// --- Render Dispatcher ---
+
+function render() {
+  if (currentView === 'grid') {
+    renderScheduleGrid();
+  } else {
+    renderListView();
+  }
+}
+
 document.getElementById('filmCount').textContent = F.length;
 
 document.getElementById('searchInput').addEventListener('input', e => {
   currentSearch = e.target.value;
   expandedId = null;
+  selectedGridFilm = null;
   render();
 });
 
@@ -630,7 +999,47 @@ document.getElementById('filters').addEventListener('click', e => {
   e.target.classList.add('active');
   currentFilter = e.target.dataset.filter;
   expandedId = null;
+  selectedGridFilm = null;
   render();
+});
+
+// View toggle
+document.getElementById('viewToggle').addEventListener('click', e => {
+  const btn = e.target.closest('.view-btn');
+  if (!btn || btn.dataset.view === currentView) return;
+  currentView = btn.dataset.view;
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filmList = document.getElementById('filmList');
+  const gridWrap = document.getElementById('scheduleGrid');
+  const daySel = document.getElementById('gridDaySelector');
+  const container = document.getElementById('mainContainer');
+  if (currentView === 'grid') {
+    filmList.style.display = 'none';
+    gridWrap.style.display = 'block';
+    daySel.style.display = 'flex';
+    container.classList.add('container--wide');
+    renderDaySelector();
+    renderScheduleGrid();
+  } else {
+    filmList.style.display = 'block';
+    gridWrap.style.display = 'none';
+    daySel.style.display = 'none';
+    container.classList.remove('container--wide');
+    selectedGridFilm = null;
+    renderListView();
+  }
+});
+
+// Day selector
+document.getElementById('gridDaySelector').addEventListener('click', e => {
+  const btn = e.target.closest('.grid-day-btn');
+  if (!btn) return;
+  currentGridDay = btn.dataset.day;
+  document.querySelectorAll('.grid-day-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedGridFilm = null;
+  renderScheduleGrid();
 });
 
 render();
