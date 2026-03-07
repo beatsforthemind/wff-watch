@@ -402,6 +402,7 @@ body {
   outline: 2px solid #fff; z-index: 20;
 }
 .schedule-block--dimmed { opacity: 0.15; pointer-events: none; }
+.schedule-block--repeat { border-style: dashed; opacity: 0.85; }
 .schedule-block-title {
   font-size: 11px; font-weight: 700; line-height: 1.2;
   overflow: hidden; text-overflow: ellipsis;
@@ -653,6 +654,37 @@ let currentView = "list";
 let currentGridDay = "Fri, Apr 10";
 let selectedGridFilm = null;
 
+const VENUE_ABBR = {
+  'Bartell':'Bartell Theatre','Chazen':'Chazen Museum of Art',
+  'Barrymore':'Barrymore Theatre','Music Hall':'Music Hall',
+  'Marquee':'Marquee at Union South','Cinematheque':'UW Cinematheque',
+  'Flix 1':'Flix Brewhouse 1','Flix 2':'Flix Brewhouse 2',
+  'Flix 7':'Flix Brewhouse 7','Flix 8':'Flix Brewhouse 8',
+};
+
+function parseAlsoShowing(film) {
+  if (!film.a || film.a === 'N/A') return null;
+  const m = film.a.match(/^(\w{3})\s+Apr\s+(\d+),\s*(\d{1,2}(?::\d{2})?)\s*(AM|PM)\s*[–—-]\s*(.+)$/i);
+  if (!m) return null;
+  const day = m[1].charAt(0).toUpperCase() + m[1].slice(1).toLowerCase();
+  const date = m[2];
+  let time = m[3];
+  if (!time.includes(':')) time += ':00';
+  const ampm = m[4].toUpperCase();
+  const venueKey = m[5].trim();
+  const venue = VENUE_ABBR[venueKey] || venueKey;
+  return { d: `${day}, Apr ${date}`, tm: `${time} ${ampm}`, v: venue };
+}
+
+const allScreenings = [];
+for (const f of F) {
+  allScreenings.push({ ...f, isRepeat: false });
+  if (f.a !== 'N/A') {
+    const alt = parseAlsoShowing(f);
+    if (alt) allScreenings.push({ ...f, d: alt.d, tm: alt.tm, v: alt.v, isRepeat: true });
+  }
+}
+
 function matches(f) {
   if (currentFilter === "doc" && !/Documentary/.test(f.g)) return false;
   if (currentFilter === "narrative" && !/Narrative/.test(f.g)) return false;
@@ -835,7 +867,7 @@ function renderListView() {
 function renderDaySelector() {
   const sel = document.getElementById('gridDaySelector');
   sel.innerHTML = DAYS.map(([key]) => {
-    const count = F.filter(f => f.d === key).length;
+    const count = allScreenings.filter(f => f.d === key).length;
     const short = key.replace(', Apr ', '/');
     return `<button class="grid-day-btn${key === currentGridDay ? ' active' : ''}" data-day="${key}">${short} <span class="grid-day-count">(${count})</span></button>`;
   }).join('');
@@ -843,7 +875,7 @@ function renderDaySelector() {
 
 function renderScheduleGrid() {
   const wrap = document.getElementById('scheduleGrid');
-  const allDayFilms = F.filter(f => f.d === currentGridDay);
+  const allDayFilms = allScreenings.filter(f => f.d === currentGridDay);
   const matchingIds = new Set(allDayFilms.filter(matches).map(f => f.id));
 
   if (!allDayFilms.length) {
@@ -886,11 +918,12 @@ function renderScheduleGrid() {
       const dimmed = matchingIds.size < allDayFilms.length && !matchingIds.has(film.id);
       const narrow = pos.width < 6;
       const selected = selectedGridFilm === film.id;
-      blocksHtml += `<div class="schedule-block${narrow ? ' schedule-block--narrow' : ''}${dimmed ? ' schedule-block--dimmed' : ''}${selected ? ' schedule-block--selected' : ''}"
+      const repeat = film.isRepeat;
+      blocksHtml += `<div class="schedule-block${narrow ? ' schedule-block--narrow' : ''}${dimmed ? ' schedule-block--dimmed' : ''}${selected ? ' schedule-block--selected' : ''}${repeat ? ' schedule-block--repeat' : ''}"
         data-id="${film.id}"
         style="left:${pos.left}%;width:${pos.width}%;background:${gc};top:${4 + stack * 50}px">
         <span class="schedule-block-title">${film.t}</span>
-        <span class="schedule-block-meta">${film.tm} · ${film.rt}m</span>
+        <span class="schedule-block-meta">${film.tm} · ${film.rt}m${repeat ? ' · repeat' : ''}</span>
       </div>`;
     }
 
@@ -1051,7 +1084,7 @@ const VENUES = [
   {name:"Chazen Museum of Art", addr:"750 University Ave, Madison, WI"},
   {name:"Flix Brewhouse", addr:"85 E Towne Mall, Madison, WI"},
   {name:"Marquee at Union South", addr:"1308 W Dayton St, Madison, WI"},
-  {name:"Music Hall", addr:"311 N Carroll St, Madison, WI"},
+  {name:"Music Hall", addr:"925 Bascom Mall, Madison, WI"},
   {name:"UW Cinematheque", addr:"4070 Vilas Hall, 821 University Ave, Madison, WI"}
 ];
 document.getElementById('venuesGrid').innerHTML = VENUES.map(v =>
